@@ -36,6 +36,10 @@ img {
   display: block;
 }
 
+.logo a{
+  color: #000;
+}
+
 header {
   position: sticky;
   top: 0;
