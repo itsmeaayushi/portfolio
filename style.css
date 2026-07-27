@@ -157,39 +157,53 @@ main {
 
 /* ---------- PROJECTS / CASE STUDIES ---------- */
 
+.projects-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.projects-label {
+  position: sticky;
+  top: 140px;
+  align-self: start;
+  margin-bottom: 0;
+}
+
 .cards {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 28px;
-  row-gap: 260px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 180px;
   position: relative;
   align-items: start;
 }
 
 .card-one {
-  grid-column: 2 / span 4;
+  grid-column: 1 / span 4;
   grid-row: 1;
 }
 
 .card-two {
-  grid-column: 8 / span 4;
+  grid-column: 5 / span 4;
   grid-row: 1;
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 .card-three {
-  grid-column: 2 / span 4;
+  grid-column: 1 / span 4;
   grid-row: 2;
 }
 
 .card-four {
-  grid-column: 8 / span 4;
+  grid-column: 5 / span 4;
   grid-row: 2;
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 .card-five {
-  grid-column: 2 / span 4;
+  grid-column: 1 / span 4;
   grid-row: 3;
 }
 
@@ -1205,6 +1219,15 @@ main {
   .work,
   .contact {
     padding: 94px 40px;
+  }
+
+  .projects-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .projects-label {
+    position: static;
   }
 
   .cards {
