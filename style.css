@@ -157,26 +157,40 @@ main {
 
 /* ---------- PROJECTS / CASE STUDIES ---------- */
 
-.projects-layout {
+.cards {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 48px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 260px;
+  position: relative;
   align-items: start;
 }
 
-.projects-label {
-  position: sticky;
-  top: 140px;
-  align-self: start;
-  margin-bottom: 0;
+.card-one {
+  grid-column: 2 / span 4;
+  grid-row: 1;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 220px;
-  max-width: 920px;
-  margin-left: auto;
+.card-two {
+  grid-column: 8 / span 4;
+  grid-row: 1;
+  margin-top: 150px;
+}
+
+.card-three {
+  grid-column: 2 / span 4;
+  grid-row: 2;
+}
+
+.card-four {
+  grid-column: 8 / span 4;
+  grid-row: 2;
+  margin-top: 150px;
+}
+
+.card-five {
+  grid-column: 2 / span 4;
+  grid-row: 3;
 }
 
 .card {
@@ -232,103 +246,98 @@ main {
 /* ---------- TESTIMONIAL ---------- */
 
 .testimonial-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 96px;
-  text-align: center;
-}
-
-.testimonial-text-wrap {
   max-width: 1040px;
 }
 
 .quote-mark {
-  font-size: 160px;
+  font-size: 96px;
   line-height: 0.75;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .quote-copy {
-  font-size: clamp(2rem, 3.4vw, 3.4rem);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  line-height: 1.35;
+  max-width: 900px;
   font-weight: 400;
   transition: opacity 0.35s ease;
 }
 
 .avatars {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  position: relative;
-  height: 140px;
+  align-items: center;
+  gap: 0;
+  margin-top: 56px;
 }
 
 .avatar-item {
-  position: relative;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  overflow: visible;
-  border: 3px solid #fff;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14);
-  background: #ddd;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
   padding: 0;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), margin 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  transition: margin-left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.avatar-item + .avatar-item {
-  margin-left: -32px;
+.avatar-item:first-child {
+  margin-left: 0;
 }
 
-.avatars[data-state="expanded"] .avatar-item + .avatar-item {
-  margin-left: 28px;
+.avatar-item:not(:first-child) {
+  margin-left: -48px;
+}
+
+.avatars[data-state="expanded"] .avatar-item:not(:first-child) {
+  margin-left: 64px;
 }
 
 .avatar-item img {
-  width: 100%;
-  height: 100%;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.avatar-detail {
-  position: absolute;
-  bottom: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+.avatar-caption {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-family: 'Sometype Mono', monospace;
-  font-size: 13px;
+  text-align: left;
+  font-size: 14px;
   line-height: 1.4;
   white-space: nowrap;
-  background: #111;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 10px;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(-8px);
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.avatar-detail strong {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.avatars[data-state="expanded"] .avatar-detail {
+.avatars[data-state="expanded"] .avatar-caption {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  pointer-events: auto;
+  transform: translateX(0);
+  max-width: 260px;
 }
 
-.avatar-item.is-active {
-  transform: translateY(-10px) scale(1.06);
+.avatar-caption strong {
+  font-weight: 600;
+  color: #111;
+}
+
+.avatar-caption em {
+  font-style: normal;
+  opacity: 0.6;
+}
+
+.avatar-item.is-active img {
+  box-shadow: 0 0 0 3px #111, 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
 /* ---------- ABOUT ---------- */
@@ -362,14 +371,18 @@ main {
 
 .about-profile-image-wrap {
   width: 40%;
-  overflow: hidden;
-  clip-path: inset(100% 0 0 0);
   box-shadow: 0 46px 140px rgba(0, 0, 0, 0.12);
+  transform: scale(0.55);
+  transform-origin: center;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about:hover .about-profile-image-wrap {
+  transform: scale(1);
 }
 
 .about-profile-image-wrap img {
   width: 100%;
-  filter: grayscale(1);
   display: block;
 }
 
@@ -884,11 +897,6 @@ main {
 .work-grid img {
   flex: 0 0 auto;
   border-radius: 0;
-  transition: transform 0.3s ease;
-}
-
-.work-grid img:hover {
-  transform: translateY(-8px) scale(1.02);
 }
 
 .project-link {
@@ -1199,19 +1207,21 @@ main {
     padding: 94px 40px;
   }
 
-  .projects-layout {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .projects-label {
-    position: static;
-  }
-
   .cards {
-    max-width: 100%;
-    margin-left: 0;
-    row-gap: 140px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    row-gap: 200px;
+  }
+
+  .card-one,
+  .card-three,
+  .card-five {
+    grid-column: 1 / span 4;
+  }
+
+  .card-two,
+  .card-four {
+    grid-column: 5 / span 4;
+    margin-top: 110px;
   }
 }
 
@@ -1246,7 +1256,21 @@ main {
   }
 
   .cards {
+    grid-template-columns: 1fr;
     row-gap: 90px;
+  }
+
+  .card-one,
+  .card-two,
+  .card-three,
+  .card-four,
+  .card-five {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 0;
+    width: min(100%, 620px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .testimonial-layout,
@@ -1264,16 +1288,16 @@ main {
   }
 
   .quote-mark {
-    font-size: 120px;
-    margin-bottom: 20px;
+    font-size: 72px;
+    margin-bottom: 12px;
   }
 
   .quote-copy {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 
   .avatars {
-    height: 120px;
+    flex-wrap: wrap;
   }
 
   .experience .timeline {
