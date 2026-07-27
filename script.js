@@ -150,7 +150,7 @@ gsap.utils.toArray('.experience .item').forEach((item) => {
       start: 'top 90%'
     },
     opacity: 0,
-    x: -90,
+    y: 90,
     duration: 1,
     ease: 'power3.out'
   });
