@@ -107,13 +107,7 @@ if (testimonialSection && avatarsWrap) {
   avatarItems.forEach((item) => {
     const index = Number(item.dataset.index);
 
-    // Hovering the second avatar swaps the testimonial
-    item.addEventListener('mouseenter', () => {
-      setActiveTestimonial(index);
-    });
-
-    // Clicking any avatar (e.g. the third) also swaps the testimonial,
-    // and keeps it selected for touch devices where hover doesn't apply
+    // Testimonial text only changes on click, not on hover
     item.addEventListener('click', () => {
       setActiveTestimonial(index);
     });
