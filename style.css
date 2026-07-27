@@ -188,7 +188,7 @@ main {
 .card-two {
   grid-column: 5 / span 4;
   grid-row: 1;
-  margin-top: 130px;
+  margin-top: 260px;
 }
 
 .card-three {
@@ -199,7 +199,7 @@ main {
 .card-four {
   grid-column: 5 / span 4;
   grid-row: 2;
-  margin-top: 130px;
+  margin-top: 260px;
 }
 
 .card-five {
@@ -384,7 +384,7 @@ main {
 }
 
 .about-profile-image-wrap {
-  width: 40%;
+  width: 100%;
   box-shadow: 0 46px 140px rgba(0, 0, 0, 0.12);
   transform: scale(0.55);
   transform-origin: center;
@@ -1244,7 +1244,7 @@ main {
   .card-two,
   .card-four {
     grid-column: 5 / span 4;
-    margin-top: 110px;
+    margin-top: 200px;
   }
 }
 
