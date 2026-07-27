@@ -173,20 +173,9 @@ main {
 
 .cards {
   display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-.cards-col {
-  flex: 1 1 0;
-  display: flex;
   flex-direction: column;
-  gap: 180px;
-  min-width: 0;
-}
-
-.cards-col-right {
-  margin-top: 260px;
+  gap: 85vh;
+  max-width: 640px;
 }
 
 .card {
@@ -1212,12 +1201,8 @@ main {
     position: static;
   }
 
-  .cards-col {
-    gap: 160px;
-  }
-
-  .cards-col-right {
-    margin-top: 200px;
+  .cards {
+    gap: 70vh;
   }
 }
 
@@ -1252,24 +1237,9 @@ main {
   }
 
   .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 90px;
+    gap: 60px;
+    max-width: 100%;
   }
-
-  .cards-col {
-    display: contents;
-  }
-
-  .cards-col-right {
-    margin-top: 0;
-  }
-
-  .card-one { order: 1; }
-  .card-two { order: 2; }
-  .card-three { order: 3; }
-  .card-four { order: 4; }
-  .card-five { order: 5; }
 
   .card-one,
   .card-two,
