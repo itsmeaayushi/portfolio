@@ -7,8 +7,8 @@ const heroTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
 heroTl
   .from('header', { opacity: 0, y: -16, duration: 0.7 })
-  .from('.hero-meta p', { opacity: 0, y: 10, stagger: 0.1, duration: 0.6 }, '-=0.35')
-  .from('.hero h1', { opacity: 0, y: 24, duration: 0.9 }, '-=0.3');
+  .from('.hero-meta p', { opacity: 0, y: 16, stagger: 0.1, duration: 0.7 }, '-=0.35')
+  .from('.hero h1', { opacity: 0, y: 32, duration: 1.1 }, '-=0.35');
 
 /* ---------- PROJECT CARDS ---------- */
 
@@ -65,21 +65,9 @@ gsap.from('.avatar-item', {
 });
 
 const testimonials = [
-  {
-    quote: "Thank you for all the contribution you have been making on Infidigit websites. It was great to see your ideas on how to enhance user experience via your design skills. Your designs have helped us improve user experience for our target audience. Your attention to detail and constant eagerness to learn new things have always amazed me.",
-    name: 'Reporting Manager',
-    company: 'Infidigit'
-  },
-  {
-    quote: "Working across time zones with Ayushi never felt like a hurdle. She translated complex proposals into visuals our international partners immediately understood, and every deadline landed on time.",
-    name: 'Product Lead',
-    company: 'Global Construction Tech'
-  },
-  {
-    quote: "Ayushi brought a sharp eye for detail to every campaign she touched. Her design work consistently lifted engagement across our social channels and made our brands feel cohesive.",
-    name: 'Creative Director',
-    company: 'ContiGo'
-  }
+  "Thank you for all the contribution you have been making on Infidigit websites. It was great to see your ideas on how to enhance user experience via your design skills. Your designs have helped us improve user experience for our target audience. Your attention to detail and constant eagerness to learn new things have always amazed me.",
+  "Working across time zones with Ayushi never felt like a hurdle. She translated complex proposals into visuals our international partners immediately understood, and every deadline landed on time.",
+  "Ayushi brought a sharp, detail-oriented perspective to every design review. Her ability to simplify complex flows made the product noticeably easier for our team to ship and maintain."
 ];
 
 const testimonialSection = document.querySelector('.testimonial');
@@ -88,14 +76,14 @@ const quoteCopyEl = document.querySelector('.quote-copy');
 const avatarItems = document.querySelectorAll('.avatar-item');
 
 function setActiveTestimonial(index) {
-  const data = testimonials[index];
-  if (!data || !quoteCopyEl) return;
+  const quote = testimonials[index];
+  if (!quote || !quoteCopyEl) return;
 
   gsap.to(quoteCopyEl, {
     opacity: 0,
     duration: 0.2,
     onComplete: () => {
-      quoteCopyEl.textContent = data.quote;
+      quoteCopyEl.textContent = quote;
       quoteCopyEl.dataset.active = String(index);
       gsap.to(quoteCopyEl, { opacity: 1, duration: 0.35 });
     }
@@ -146,28 +134,17 @@ gsap.from('.about-copy p', {
   ease: 'power3.out'
 });
 
-// Profile image reveals upward from the bottom as it scrolls into view
-gsap.fromTo('.about-profile-image-wrap',
-  { clipPath: 'inset(100% 0 0 0)' },
-  {
-    clipPath: 'inset(0% 0 0 0)',
-    duration: 1.4,
-    ease: 'power4.out',
-    scrollTrigger: {
-      trigger: '.about-profile-image-wrap',
-      start: 'top 85%'
-    }
-  }
-);
-
-gsap.from('.about-profile-image-wrap img', {
+// The about image now grows smoothly from small to full size on hover —
+// see the .about-profile-image-wrap / .about:hover rule in style.css.
+// A quick fade-in on scroll is kept for the initial appearance only.
+gsap.from('.about-profile', {
   scrollTrigger: {
-    trigger: '.about-profile-image-wrap',
-    start: 'top 85%'
+    trigger: '.about',
+    start: 'top 90%'
   },
-  scale: 1.15,
-  duration: 1.4,
-  ease: 'power4.out'
+  opacity: 0,
+  duration: 0.9,
+  ease: 'power2.out'
 });
 
 /* ---------- EXPERIENCE ---------- */
@@ -286,11 +263,4 @@ if (workGrid) {
       img.addEventListener('error', onImgReady);
     }
   });
-
-  // Pause on hover so users can look closer, resume on mouse leave
-  const workViewport = document.querySelector('.work-track-viewport');
-  if (workViewport) {
-    workViewport.addEventListener('mouseenter', () => marqueeTween && marqueeTween.pause());
-    workViewport.addEventListener('mouseleave', () => marqueeTween && marqueeTween.play());
-  }
 }
