@@ -16,17 +16,16 @@ gsap.utils.toArray('.cards .card').forEach((card, index) => {
   gsap.from(card, {
     scrollTrigger: {
       trigger: card,
-      start: 'top 88%'
+      start: 'top 90%',
+      once: true
     },
     opacity: 0,
-    y: 100,
-    duration: 1,
-    ease: 'power3.out',
-    delay: index * 0.05
+    x: index % 2 === 0 ? -48 : 48,
+    y: 70,
+    duration: 0.95,
+    ease: 'power3.out'
   });
 });
-
-/* Note: the old hover-tilt effect on project cards has been removed per request. */
 
 /* ---------- TESTIMONIAL ---------- */
 
@@ -128,18 +127,59 @@ gsap.from('.about-copy p', {
   ease: 'power3.out'
 });
 
-// The about image now grows smoothly from small to full size on hover —
-// see the .about-profile-image-wrap / .about:hover rule in style.css.
-// A quick fade-in on scroll is kept for the initial appearance only.
+// Reveal the image, then grow it progressively as the About section is scrolled.
 gsap.from('.about-profile', {
   scrollTrigger: {
     trigger: '.about',
-    start: 'top 90%'
+    start: 'top 90%',
+    once: true
   },
   opacity: 0,
-  duration: 0.9,
+  duration: 0.75,
   ease: 'power2.out'
 });
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const aboutImage = document.querySelector('.about-profile-image-wrap');
+
+if (aboutImage) {
+  if (prefersReducedMotion) {
+    gsap.set(aboutImage, { scale: 1 });
+  } else {
+    ScrollTrigger.matchMedia({
+      '(min-width: 901px)': () => gsap.fromTo(
+        aboutImage,
+        { scale: 0.55 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.about',
+            start: 'top 82%',
+            end: 'bottom 38%',
+            scrub: 0.8,
+            invalidateOnRefresh: true
+          }
+        }
+      ),
+      '(max-width: 900px)': () => gsap.fromTo(
+        aboutImage,
+        { scale: 0.78 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: aboutImage,
+            start: 'top 92%',
+            end: 'center 55%',
+            scrub: 0.6,
+            invalidateOnRefresh: true
+          }
+        }
+      )
+    });
+  }
+}
 
 /* ---------- EXPERIENCE ---------- */
 
@@ -182,35 +222,39 @@ gsap.utils.toArray('.offscreen-gallery img').forEach((img) => {
   });
 });
 
-document.querySelectorAll('.gallery-item').forEach((button) => {
-  button.addEventListener('click', () => {
-    const src = button.dataset.src;
-    const modal = document.querySelector('.image-modal');
-    const modalImg = modal.querySelector('.image-modal-img');
-
-    modalImg.src = src;
-    modal.setAttribute('aria-hidden', 'false');
-    modal.classList.add('active');
-  });
-});
-
 const modal = document.querySelector('.image-modal');
-const modalClose = modal.querySelector('.image-modal-close');
-const modalBackdrop = modal.querySelector('.image-modal-backdrop');
+const modalImg = modal?.querySelector('.image-modal-img');
+const modalClose = modal?.querySelector('.image-modal-close');
+const modalBackdrop = modal?.querySelector('.image-modal-backdrop');
 
-const closeModal = () => {
-  modal.classList.remove('active');
-  modal.setAttribute('aria-hidden', 'true');
-  modal.querySelector('.image-modal-img').src = '';
-};
+if (modal && modalImg) {
+  document.querySelectorAll('.gallery-item').forEach((button) => {
+    button.addEventListener('click', () => {
+      const src = button.dataset.src;
+      if (!src) return;
 
-modalClose.addEventListener('click', closeModal);
-modalBackdrop.addEventListener('click', closeModal);
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && modal.classList.contains('active')) {
-    closeModal();
-  }
-});
+      modalImg.src = src;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.src = '';
+    document.body.style.overflow = '';
+  };
+
+  modalClose?.addEventListener('click', closeModal);
+  modalBackdrop?.addEventListener('click', closeModal);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
 
 /* ---------- PLAYGROUND: continuous right-to-left auto scroll ---------- */
 
@@ -258,3 +302,5 @@ if (workGrid) {
     }
   });
 }
+
+window.addEventListener('load', () => ScrollTrigger.refresh());
