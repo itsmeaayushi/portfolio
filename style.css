@@ -355,15 +355,11 @@ main {
 }
 
 .about-profile-image-wrap {
-  width: 100%;
+  width: min(100%, 480px);
   box-shadow: 0 46px 140px rgba(0, 0, 0, 0.12);
   transform: scale(0.55);
   transform-origin: center;
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.about:hover .about-profile-image-wrap {
-  transform: scale(1);
+  will-change: transform;
 }
 
 .about-profile-image-wrap img {
@@ -1365,3 +1361,397 @@ main {
     font-size: 0.96rem;
   }
 }
+
+/* ==========================================================
+   FINAL LAYOUT REFINEMENTS
+   - Smaller alternating project cards
+   - Scroll-controlled About image
+   - Mobile-safe layouts and touch interactions
+   ========================================================== */
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+section {
+  scroll-margin-top: 110px;
+}
+
+/* Project cards: compact zig-zag presentation */
+.projects-layout {
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+}
+
+.cards {
+  width: 100%;
+  max-width: 920px;
+  gap: clamp(120px, 18vh, 220px);
+}
+
+.card {
+  width: clamp(300px, 48%, 460px);
+  max-width: 460px;
+  border-left-width: 3px;
+}
+
+.card:nth-child(odd) {
+  align-self: flex-start;
+}
+
+.card:nth-child(even) {
+  align-self: flex-end;
+}
+
+.card-copy,
+.project-link .card-copy {
+  min-height: 118px;
+  padding: 14px 18px 18px;
+}
+
+.card h3 {
+  max-width: 100%;
+  margin-bottom: 18px;
+  font-size: clamp(1rem, 1.25vw, 1.3rem);
+  line-height: 1.16;
+}
+
+.card-meta {
+  grid-template-columns: minmax(70px, 0.65fr) minmax(120px, 1.35fr);
+  gap: 12px;
+  font-size: 13px;
+}
+
+/* About image stays stable; GSAP controls its scale while scrolling */
+.about-profile {
+  position: sticky;
+  top: 130px;
+  align-self: start;
+}
+
+.about-profile-image-wrap {
+  transition: none;
+}
+
+/* Prevent the desktop experience grid from forcing horizontal overflow */
+.item {
+  grid-template-columns: minmax(180px, 0.7fr) minmax(220px, 0.85fr) minmax(0, 1.45fr);
+}
+
+@media (max-width: 1100px) {
+  .projects-layout {
+    grid-template-columns: minmax(130px, 170px) minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .cards {
+    gap: 110px;
+  }
+
+  .card {
+    width: min(52%, 420px);
+  }
+
+  .about {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.75fr);
+    gap: 52px;
+  }
+
+  .item {
+    grid-template-columns: minmax(150px, 0.65fr) minmax(190px, 0.8fr) minmax(0, 1.3fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  header {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px 28px;
+  }
+
+  nav {
+    margin-left: auto;
+    gap: 22px;
+    font-size: 15px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 100px;
+  }
+
+  .hero h1 {
+    width: 100%;
+    margin-top: 90px;
+  }
+
+  .projects-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .projects-label {
+    position: static;
+  }
+
+  .cards {
+    max-width: 760px;
+    gap: 82px;
+  }
+
+  .card {
+    width: min(78%, 520px);
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-profile {
+    position: static;
+    margin-top: 0;
+  }
+
+  .about-profile-image-wrap {
+    width: min(100%, 520px);
+    margin-inline: auto;
+  }
+
+  .item {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    display: grid;
+    justify-items: start;
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 17px 20px;
+    gap: 14px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    width: auto;
+    gap: 14px;
+    font-size: 13px;
+  }
+
+  .hero,
+  .projects,
+  .testimonial,
+  .about,
+  .experience,
+  .offscreen,
+  .work,
+  .contact {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero {
+    padding-top: 82px;
+    padding-bottom: 88px;
+    gap: 26px;
+  }
+
+  .hero-meta {
+    gap: 14px;
+  }
+
+  .hero h1 {
+    margin-top: 64px;
+    font-size: clamp(2.55rem, 12vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .intro,
+  .status,
+  .section-label {
+    font-size: 14px;
+  }
+
+  .projects,
+  .testimonial,
+  .about,
+  .experience,
+  .offscreen,
+  .work,
+  .contact {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .cards {
+    gap: 54px;
+  }
+
+  .card,
+  .card:nth-child(odd),
+  .card:nth-child(even) {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+  }
+
+  .card-copy,
+  .project-link .card-copy {
+    min-height: 0;
+    padding: 15px 16px 18px;
+  }
+
+  .card h3 {
+    margin-bottom: 20px;
+    font-size: 1.15rem;
+  }
+
+  .card-meta {
+    font-size: 12px;
+  }
+
+  .quote-copy {
+    font-size: 1.2rem;
+  }
+
+  /* Touch-friendly testimonial selectors; no hover is required */
+  .avatars {
+    display: grid;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .avatar-item,
+  .avatar-item:not(:first-child) {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .avatar-caption,
+  .avatars[data-state="expanded"] .avatar-caption {
+    max-width: none;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
+    white-space: normal;
+  }
+
+  .about-copy .abt {
+    font-size: clamp(1.35rem, 6.5vw, 1.8rem);
+    line-height: 1.2;
+  }
+
+  .about-profile-image-wrap {
+    width: 100%;
+  }
+
+  .resume-download-btn,
+  .contact button {
+    width: 100%;
+    padding-inline: 24px;
+  }
+
+  /* Convert the overlapping fan into a swipeable mobile gallery */
+  .offscreen-gallery {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    height: auto;
+    margin-top: 28px;
+    padding: 12px 0 22px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .offscreen-gallery .gallery-item,
+  .offscreen-gallery .gallery-item:nth-child(n) {
+    position: relative;
+    inset: auto;
+    left: auto;
+    bottom: auto;
+    flex: 0 0 min(74vw, 290px);
+    width: min(74vw, 290px);
+    height: min(74vw, 290px);
+    transform: none !important;
+    scroll-snap-align: center;
+  }
+
+  .work-grid {
+    gap: 14px;
+  }
+
+  .work-grid img {
+    width: auto;
+    max-width: 74vw;
+    height: auto;
+  }
+
+  .contact-copy h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .site-footer {
+    padding: 54px 20px 80px;
+  }
+
+  .site-footer p {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 430px) {
+  header {
+    align-items: flex-start;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  .hero-meta {
+    display: grid;
+  }
+
+  .hero h1 {
+    margin-top: 42px;
+  }
+
+  .card-meta {
+    grid-template-columns: 0.7fr 1.3fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
