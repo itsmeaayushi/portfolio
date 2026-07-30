@@ -12,7 +12,7 @@ heroTl
 
 /* ---------- PROJECT CARDS ---------- */
 
-gsap.utils.toArray('.cards .card').forEach((card, index) => {
+gsap.utils.toArray('.cards .card').forEach((card) => {
   gsap.from(card, {
     scrollTrigger: {
       trigger: card,
@@ -20,7 +20,6 @@ gsap.utils.toArray('.cards .card').forEach((card, index) => {
       once: true
     },
     opacity: 0,
-    x: index % 2 === 0 ? -48 : 48,
     y: 70,
     duration: 0.95,
     ease: 'power3.out'
