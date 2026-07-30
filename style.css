@@ -152,7 +152,7 @@ main {
 .offscreen,
 .work,
 .contact {
-  padding: 120px 64px;
+  padding: 120px 100px;
 }
 
 /* ---------- PROJECTS / CASE STUDIES ---------- */
@@ -230,7 +230,7 @@ main {
 /* ---------- TESTIMONIAL ---------- */
 
 .testimonial-layout {
-  max-width: 1040px;
+  max-width: 100%;
 }
 
 .quote-mark {
@@ -240,10 +240,10 @@ main {
 }
 
 .quote-copy {
-  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-size: 2rem;
   line-height: 1.35;
   max-width: 900px;
-  font-weight: 400;
+  font-weight: 300;
   transition: opacity 0.35s ease;
 }
 
