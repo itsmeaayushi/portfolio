@@ -242,7 +242,7 @@ main {
 .quote-copy {
   font-size: 2rem;
   line-height: 1.35;
-  max-width: 900px;
+  max-width: 100%;
   font-weight: 300;
   transition: opacity 0.35s ease;
 }
