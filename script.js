@@ -259,46 +259,56 @@ if (modal && modalImg) {
 
 const workGrid = document.querySelector('.work-grid');
 
-if (workGrid) {
-  // Duplicate the row once so the loop can wrap seamlessly
-  const originalChildren = Array.from(workGrid.children);
-  originalChildren.forEach((child) => {
-    workGrid.appendChild(child.cloneNode(true));
+if (workGrid && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const originalItems = Array.from(workGrid.children);
+
+  // Duplicate the original row for a seamless infinite loop.
+  // Force cloned images to load because lazy-loaded off-screen clones can prevent
+  // the old marquee code from ever starting.
+  const clonedItems = originalItems.map((item) => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+
+    clone.querySelectorAll('img').forEach((img) => {
+      img.loading = 'eager';
+    });
+
+    workGrid.appendChild(clone);
+    return clone;
   });
 
   let marqueeTween;
+  let resizeTimer;
 
   const startMarquee = () => {
-    // Wait for images to load so we know the true width of one set
-    const setWidth = workGrid.scrollWidth / 2;
+    marqueeTween?.kill();
+    gsap.set(workGrid, { x: 0 });
+
+    const firstOriginal = originalItems[0];
+    const firstClone = clonedItems[0];
+
+    if (!firstOriginal || !firstClone) return;
+
+    // offsetLeft gives the exact width of one complete set, including the gap.
+    const loopDistance = firstClone.offsetLeft - firstOriginal.offsetLeft;
+    if (loopDistance <= 0) return;
 
     marqueeTween = gsap.to(workGrid, {
-      x: -setWidth,
-      duration: setWidth / 60, // moderate, consistent speed regardless of content length
+      x: -loopDistance,
+      duration: loopDistance / 60,
       ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize((x) => parseFloat(x) % setWidth)
-      }
+      repeat: -1
     });
   };
 
-  const imagesInGrid = workGrid.querySelectorAll('img');
-  let loaded = 0;
-  const onImgReady = () => {
-    loaded += 1;
-    if (loaded === imagesInGrid.length) {
-      startMarquee();
-    }
-  };
+  // Start after layout is ready. Width attributes allow this to work even while
+  // some image files are still downloading.
+  requestAnimationFrame(() => requestAnimationFrame(startMarquee));
 
-  imagesInGrid.forEach((img) => {
-    if (img.complete) {
-      onImgReady();
-    } else {
-      img.addEventListener('load', onImgReady);
-      img.addEventListener('error', onImgReady);
-    }
+  // Recalculate the distance when the viewport size changes.
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(startMarquee, 150);
   });
 }
 
