@@ -80,7 +80,7 @@ main {
 
 .hero {
   min-height: calc(100vh - 96px);
-  padding: 20px 64px 140px;
+  padding: 75px 64px 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,9 +117,9 @@ main {
 
 .hero h1 {
   font-size: clamp(4.5rem, 6vw, 7.5rem);
-  line-height: 100%;
+  line-height: 7rem;
   max-width: 100%;
-  letter-spacing: -0.04em;
+  letter-spacing: 0em;
   font-weight: 400;
   text-align: center;
   width: 68%;
