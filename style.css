@@ -366,6 +366,7 @@ main {
 .about-profile-image-wrap img {
   width: 100%;
   display: block;
+  filter: grayscale(1);
 }
 
 .resume-download-row {
