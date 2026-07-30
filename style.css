@@ -295,7 +295,7 @@ main {
   gap: 2px;
   text-align: left;
   font-family: 'Bricolage Grotesque';
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.4;
   white-space: nowrap;
   opacity: 0;
@@ -318,6 +318,7 @@ main {
 
 .avatar-caption em {
   font-style: normal;
+  font-size: 16px;
   opacity: 0.6;
 }
 
