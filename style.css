@@ -1044,13 +1044,14 @@ main {
 
 
 .case-study-section h2 {
-  font-size: 40px;
+  font-size: 1.5rem;
   font-weight: 400;
 }
 
 .case-study-section p {
   line-height: 1.2;
   font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .case-study-secondary {
