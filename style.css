@@ -1666,6 +1666,11 @@ section {
     padding-inline: 24px;
   }
 
+  .contact button a{
+    text-decoration: none;
+    color: #000;
+  }
+
   /* Convert the overlapping fan into a swipeable mobile gallery */
   .offscreen-gallery {
     position: relative;
