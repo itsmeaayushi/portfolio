@@ -234,9 +234,9 @@ main {
 }
 
 .quote-mark {
-  font-size: 96px;
+  font-size: 150px;
   line-height: 0.75;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 
 .quote-copy {
