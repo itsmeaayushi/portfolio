@@ -321,9 +321,9 @@ main {
   opacity: 0.6;
 }
 
-.avatar-item.is-active img {
+/* .avatar-item.is-active img {
   box-shadow: 0 0 0 3px #111, 0 6px 18px rgba(0, 0, 0, 0.18);
-}
+} */
 
 /* ---------- ABOUT ---------- */
 
