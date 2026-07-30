@@ -73,14 +73,14 @@ nav a {
 
 main {
   max-width: 1500px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 /* ---------- HERO ---------- */
 
 .hero {
   min-height: calc(100vh - 96px);
-  padding: 75px 64px 140px;
+  padding: 75px 100px 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
